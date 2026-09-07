@@ -1,0 +1,6 @@
+# PDF files (any capitalization)
+*.[pP][dD][fF]
+
+# Temporary files and directories
+tmp/
+*.tmp
