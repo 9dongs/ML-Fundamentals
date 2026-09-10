@@ -32,5 +32,15 @@ sentences):** why is `pairwise_sq_dists` with broadcasting faster than a
 double loop? What does `keepdims=True` do and why does `row_normalize` need
 it? Why does subtracting the row max not change `softmax_rows`'s answer?
 
+---
+**A0 과제**
+
+`pairwise_sq_dists`는 브로드캐스팅과 행렬곱을 통해 배열 연산을 NumPy의 최적화된 내부 코드에서 수행하므로, Python 이중 반복문의 반복 처리 비용을 줄여 일반적으로 더 빠르다.
+`keepdims=True`는 연산으로 축소한 축을 길이 1로 유지하는 옵션이다.
+`row_normalize`에서는 각 행의 L2 노름을 `(n, 1)` 모양으로 유지하여, `(n, d)` 배열의 각 행이 자신의 노름으로 나누어지도록 브로드캐스팅을 맞춘다.
+`softmax_rows`에서 한 행의 최댓값 `m`을 빼면 분자와 분모의 모든 지수항에 같은 인자 `exp(-m)`이 곱해져 약분되므로 결과는 수학적으로 같으며, 지수 함수의 입력이 0 이하가 되어 오버플로를 방지할 수 있다.
+
+---
+
 If A0 takes much longer than an afternoon or two, come to office hours in
 Week 1 — before A1, not after.
